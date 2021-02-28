@@ -1,12 +1,12 @@
 package GzipCompare;
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw/compare/;
-our %EXPORT_TAGS = (all => \@EXPORT_OK);
+our @EXPORT = qw/compare randomfile readfiles/;
 use warnings;
 use strict;
 use utf8;
 use Carp;
+use JSON::Parse 'read_json';
 
 use File::Slurper 'read_binary';
 
@@ -74,6 +74,21 @@ sub gz
     my ($text) = @_;
     my $out = Gzip::Zopfli::ZopfliCompress ($text);
     return length ($out);
+}
+
+
+sub randomfile
+{
+    my ($files, $n) = @_;
+    return $files->[ int (rand ($n)) ];
+}
+
+sub readfiles
+{
+    my ($Bin) = @_;
+    my $files = read_json ("$Bin/all-files.json");
+    my $n = scalar (@$files);
+    return ($files, $n);
 }
 
 1;

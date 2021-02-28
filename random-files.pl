@@ -2,14 +2,11 @@
 use Z;
 use JSON::Parse 'read_json';
 use lib "$Bin";
-use GzipCompare 'compare';
-my $files = read_json ("$Bin/all-files.json");
-my $n = scalar (@$files);
-my @files;
+use GzipCompare;
+my ($files, $n) = readfiles ();
+my @rfiles;
 for (0..10) {
-    my $filen = int (rand ($n));
-    push @files, $files->[$filen];
+    push @rfiles, randomfile ($files, $n);
 }
-compare (\@files);
-
-
+compare (\@rfiles);
+exit;
