@@ -72,7 +72,7 @@ sub gl12
 sub gz
 {
     my ($text) = @_;
-    my $out = Gzip::Zopfli::ZopfliCompress ($text);
+    my $out = Gzip::Zopfli::zopfli_compress ($text);
     return length ($out);
 }
 
